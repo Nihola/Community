@@ -9,7 +9,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className='w-full shadow-sm'>
+    <header className='shadow-sm max-w-[1520px] container mx-auto fixed z-50 bg-white'>
       <div className='container mx-auto flex justify-between items-center px-6 py-4'>
         <Link href="/">
           <Image src="/Logo.png" alt="logo" height={60} width={140} />

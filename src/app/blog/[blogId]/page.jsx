@@ -1,8 +1,10 @@
-"use client"
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation'
-import React from 'react'
+import { useParams } from 'next/navigation';
+import React from 'react';
+
 export const data = [
   {
     id: 1,
@@ -46,61 +48,58 @@ export const data = [
     text: "Essential digital tools and mindset for launching your startup effectively.",
     btn: "Learn More"
   }
-
 ];
+
 const BlogInner = () => {
-    const params = useParams();
-    console.log(params);
+  const params = useParams();
+  const blogId = params?.blogId;
+  const blog = data.find((item) => item.id == blogId);
 
-   const filteredData= data?.filter((item)=> item.id == params.blogId);
-   console.log(filteredData);
+  if (!blog) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-semibold">Blog not found</h1>
+        <Link href="/blog" className="mt-4 inline-block text-blue-600 hover:underline">
+          ← Go back to blog list
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div>
-         <div> 
-          <h1>Blog Detail Page</h1>
-        <div className='flex flex-wrap'>
+    <div className="container mx-auto px-4 sm:px-8 lg:px-16 py-12">
+      {/* Back Link */}
+      <div className="mb-6">
+        <Link href="/blog" className="text-sm text-blue-600 hover:underline">
+          ← Back to all posts
+        </Link>
+      </div>
 
-          {
-            filteredData && filteredData.map((item) => (
-              <Link href={`/blog/${item?.id}`} key={item.id}>
-                <div>
-                  <Image
-                    src={item.img}
-                    alt={item.title}
-                    width={300}
-                    height={200}
-                    className='rounded mb-3'
-                  />
-                  <h2>{item.title}</h2>
-                  <h2>{item.text}</h2>
-                  <button>{item.btn}</button>
-                </div>
-              </Link>
-            ))
-          }
+      {/* Hero Image */}
+      <div className="w-full max-w-4xl mx-auto">
+        <Image
+          src={blog.img}
+          alt={blog.title}
+          width={800}
+          height={450}
+          className="rounded-lg w-full object-cover mb-8 shadow-md"
+        />
+      </div>
 
-
-
-
-        </div>
-             
-          
-
-
-
-         
-
-         
-         
-         </div>
-
-
-
-    
-
-      
+      {/* Content */}
+      <div className="max-w-3xl mx-auto text-center">
+        <h1 className="text-[28px] sm:text-[36px] font-bold text-[#0D1317] leading-tight mb-6">
+          {blog.title}
+        </h1>
+        <p className="text-[16px] sm:text-[18px] text-[#5B5B5B] leading-relaxed mb-8">
+          {blog.text}
+        </p>
+        <button className="text-white bg-amber-600 hover:bg-amber-700 transition px-6 py-3 rounded-full font-medium shadow">
+          {blog.btn}
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default BlogInner
+export default BlogInner;

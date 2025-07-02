@@ -8,7 +8,6 @@ import { FiMenu, FiX } from 'react-icons/fi';
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Optional: Prevent background scroll on mobile when menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
@@ -28,26 +27,26 @@ const Header = () => {
           <Image src="/Logo.png" alt="logo" height={50} width={120} />
         </Link>
 
-        {/* Hamburger Menu Icon (visible on small screens) */}
+        {/* Hamburger */}
         <div className="md:hidden text-3xl text-gray-700 cursor-pointer z-[1001]" onClick={toggleMenu}>
           {menuOpen ? <FiX /> : <FiMenu />}
         </div>
 
-        {/* Navigation Links */}
+        {/* Overlay Menu */}
         <ul
-          className={`
-            flex flex-col md:flex-row gap-6 md:gap-10 
-            fixed md:static top-0 left-0 h-screen md:h-auto w-full md:w-auto 
-            bg-white md:bg-transparent p-6 md:p-0 
-            pt-24 md:pt-0 transition-all duration-300 ease-in-out 
-            ${menuOpen ? 'translate-x-0' : '-translate-x-full'} 
-            md:translate-x-0 z-[1000]
+          className={`md:flex md:flex-row gap-6 md:gap-10 
+          fixed md:static top-0 left-0 w-full h-full md:h-auto md:w-auto 
+          bg-white md:bg-transparent p-6 md:p-0 
+          pt-24 md:pt-0 flex-col 
+          transform transition-transform duration-300 ease-in-out 
+          ${menuOpen ? 'translate-x-0' : '-translate-x-full'} 
+          md:translate-x-0 z-[1000]
           `}
         >
           {['about', 'careers', 'services', 'blog', 'contact'].map((page) => (
             <li
               key={page}
-              className="text-base sm:text-lg md:text-xl text-gray-700 font-medium hover:bg-[rgba(245,138,7,0.1)] rounded-2xl py-2 px-3 hover:text-amber-600"
+              className="text-lg md:text-xl text-gray-700 font-medium hover:bg-[rgba(245,138,7,0.1)] rounded-2xl py-2 px-3 hover:text-amber-600"
               onClick={closeMenu}
             >
               <Link href={`/${page}`}>
@@ -57,6 +56,14 @@ const Header = () => {
           ))}
         </ul>
       </div>
+
+      {/* Optional backdrop for nicer UX */}
+      {menuOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-40 z-[999]"
+          onClick={closeMenu}
+        />
+      )}
     </header>
   );
 };

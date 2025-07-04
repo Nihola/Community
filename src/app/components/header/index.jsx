@@ -21,8 +21,8 @@ const Header = () => {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="shadow-sm w-full fixed top-0 z-[999] bg-white">
-      <div className="max-w-[1520px] mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-16 py-4">
+    <header className="shadow-sm w-full fixed top-0 z-[999] bg-white max-w-[1520px] mx-auto ">
+      <div className="flex justify-between items-center px-4 sm:px-6 lg:px-16 py-4">
         {/* Logo */}
         <Link href="/" onClick={closeMenu}>
           <Image src="/Logo.png" alt="logo" height={50} width={120} />
